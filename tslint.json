@@ -1,6 +1,7 @@
 {
   "extends": "tslint:recommended",
   "rules": {
+    "semicolon": [true, "never"],
     "array-type": false,
     "arrow-parens": false,
     "deprecation": {
@@ -12,13 +13,13 @@
     "directive-selector": [
       true,
       "attribute",
-      "app",
+      "quincy",
       "camelCase"
     ],
     "component-selector": [
       true,
       "element",
-      "app",
+      "quincy",
       "kebab-case"
     ],
     "import-blacklist": [

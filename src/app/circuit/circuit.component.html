@@ -1,0 +1,14 @@
+
+<svg>
+  <g id="registers">
+    <g *ngFor="let r of registers$ | async; let i = index" id="'register' + i">
+        <text x="10" [attr.y]="registerOffsetV(i)">
+          {{ initialQubit(r.initialValue) }}
+        </text>
+
+        <line x1="10" [attr.y1]="registerOffsetV(i)" x2="50" [attr.y2]="registerOffsetV(i)" style="stroke: black"/>
+
+
+    </g>
+  </g>
+</svg>
