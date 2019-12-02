@@ -53,7 +53,7 @@ export function transpose(mat: Matrix) {
     mat.elements.forEach((row, ri) => row.forEach((x, ci) => {
         result.elements[ci][ri] = conj(x)
     }))
-    
+
     return result
 }
 
@@ -83,6 +83,10 @@ export function multiplyM(mat1: Matrix, mat2: Matrix): Matrix {
         }
     }
     return m(result)
+}
+
+export function toMatrix(vec: Vector) {
+    return m(vec.elements.map(e => ([e])))
 }
 
 export function add(x1: Complex, x2: Complex): Complex {
@@ -170,6 +174,41 @@ export function equalsMatrix(m1: Matrix, m2: Matrix) {
         }
     }
     return true
+}
+
+export function initMatrix(rows: number, cols: number) {
+    const elements = []
+    for (let r = 0; r < rows; r++) {
+        elements.push(new Array(cols))
+    }
+    return m(elements)
+}
+
+export function tensor(m1: Matrix, m2: Matrix) {
+    const result = initMatrix(
+        m1.elements.length * m2.elements.length,
+        m1.elements[0].length * m2.elements[0].length
+    )
+    const m1Rows = m1.elements.length
+    const m1Cols = m1.elements[0].length
+    const m2Rows = m2.elements.length
+    const m2Cols = m2.elements[0].length
+
+    for (let r1 = 0; r1 < m1Rows; r1++) {
+        for (let c1 = 0; c1 < m1Cols; c1++) {
+            for (let r2 = 0; r2 < m2Rows; r2++) {
+                for (let c2 = 0; c2 < m2Cols; c2++) {
+                    const rResult = r2 + (r1 * m2Rows)
+                    const cResult = c2 + (c1 * m2Cols)
+                    const el1 = m1.elements[r1][c1]
+                    const el2 = m2.elements[r2][c2]
+                    result.elements[rResult][cResult] = prod(el1, el2)
+                }
+            }
+        }
+    }
+
+    return result
 }
 
 export const C = {

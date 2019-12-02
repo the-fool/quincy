@@ -89,7 +89,7 @@ describe('matrix functions', () => {
             ).toBeTruthy()
         })
 
-        it('should be correct positively', () => {
+        it('should be correct for square matrices', () => {
             expect(M.equals(
                 M.multiply(identity2, identity2),
                 identity2
@@ -106,7 +106,27 @@ describe('matrix functions', () => {
                     mm),
                 mm
             )).toBeTruthy()
+        })
 
+        it('should be correct for non-square matrices', () => {
+            const vec2 = m([
+                [c(9, 9)],
+                [c(8, 8)]
+            ])
+            expect(M.equals(
+                M.multiply(identity2, vec2),
+                vec2
+            )).toBeTruthy()
+
+            const vec3 = m([
+                [c(9, 9)],
+                [c(8, 8)],
+                [c(7, 7)]
+            ])
+            expect(M.equals(
+                M.multiply(identity3, vec3),
+                vec3
+            )).toBeTruthy()
         })
     })
 
